@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- conding:utf-8 -*-
+
 def read(d, word):
     import pyttsx3 as tts
     engine = tts.init()
