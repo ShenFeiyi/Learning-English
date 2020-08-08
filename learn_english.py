@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- conding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 def read(d, word):
     import pyttsx3 as tts
@@ -118,6 +118,14 @@ def read_dict(filename,**kwarg):
                     have_n_meanings += 1
             if not last_meaning in pre_meanings:
                 dictionary[word][len(dictionary[word])] = last_meaning
+
+    rm = []
+    for word in dictionary:
+        for index in dictionary[word]:
+            if dictionary[word][index] == '':
+                rm.append([word,index])
+    for item in rm:
+        dictionary[item[0]].pop(item[1])
 
     return dictionary
 
