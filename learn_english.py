@@ -133,7 +133,15 @@ GRE = read_dict('GRE3000.txt')
 word_list = read_dict('TOEFL.txt',dictionary=GRE)
 
 import random
-words = random.sample(word_list.keys(),10)
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--words', type=int, default=10,
+                   help='numbers of initial words')
+args = parser.parse_args()
+params = vars(args)
+
+words = random.sample(word_list.keys(),params['words'])
 for word in words:
     word_dict = find_word(dictionary=word_list, word=word)
     print(f'{word} {word_list[word]}')
