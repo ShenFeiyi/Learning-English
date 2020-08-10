@@ -145,7 +145,7 @@ params = vars(args)
 
 if params['random']:
     import random
-    words = random.sample(word_list.keys(),params['words'])
+    words = random.sample(word_list.keys(),params['random_words'])
     for word in words:
         word_dict = find_word(dictionary=word_list, word=word)
         print(f'{word} {word_list[word]}')
