@@ -134,34 +134,51 @@ word_list = read_dict('TOEFL.txt',dictionary=GRE)
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--random', action='store_true',
-                    help='true for random words; false for selected words')
-parser.add_argument('--random_words', type=int, default=10,
-                    help='numbers of initial random words')
-parser.add_argument('--word', type=str, default=None,
-                    help='the given word, if not random mode is on')
+parser.add_argument('--debug', action='store_true', help='for debug')
+parser.add_argument('--random', action='store_true', help='true for random words; false for given word')
+parser.add_argument('--random_words', type=int, default=10, help='total number of initial random words')
+parser.add_argument('--word', type=str, default=None, help='look up the given word')
+parser.add_argument('--meaning', type=str, default=None, help='look up the chinese meaning')
 args = parser.parse_args()
 params = vars(args)
 
 if params['random']:
-    import random
-    words = random.sample(word_list.keys(),params['random_words'])
-    for word in words:
-        word_dict = find_word(dictionary=word_list, word=word)
-        print(f'{word} {word_list[word]}')
-        read(word_list, word)
-        for w in word_dict:
-            print(f'{w} {word_dict[w]}')
-            read(word_dict, w)
-        print('')
-else:
-    if not params['word'] is None:
-        word = params['word']
-        word_dict = find_word(dictionary=word_list, word=word)
-        print(f'{word} {word_list[word]}')
-        read(word_list, word)
-        for w in word_dict:
-            print(f'{w} {word_dict[w]}')
-            read(word_dict, w)
+    if not params['debug']:
+        import random
+        words = random.sample(word_list.keys(),params['random_words'])
+        for word in words:
+            word_dict = find_word(dictionary=word_list, word=word)
+            print(f'{word} {word_list[word]}')
+            read(word_list, word)
+            for w in word_dict:
+                print(f'{w} {word_dict[w]}')
+                read(word_dict, w)
+            print('')
     else:
-        print('Should give a word under non-random circumstance!')
+        print(f"DEBUG, random mode {params['random']}, random words = {params['random_words']}")
+else:
+    if params['word'] is None and params['meaning'] is not None:
+        if params['debug']:
+            print('meaning')
+        else:
+            word = params['meaning']
+            word_dict = find_word(dictionary=word_list, word=word)
+            for w in word_dict:
+                print(f'{w} {word_dict[w]}')
+                read(word_dict, w)
+    elif params['word'] is not None and params['meaning'] is None:
+        if params['debug']:
+            print('word')
+        else:
+            word = params['word']
+            word_dict = find_word(dictionary=word_list, word=word)
+            print(f'{word} {word_list[word]}')
+            read(word_list, word)
+            for w in word_dict:
+                print(f'{w} {word_dict[w]}')
+                read(word_dict, w)
+    else:
+        if params['debug']:
+            print('DEBUG, Should give a word/meaning under non-random circumstance!')
+        else:
+            print('Should give a word/meaning under non-random circumstance!')

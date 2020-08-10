@@ -18,6 +18,8 @@ python3 learn_english.py --random --random_words 10
 python3 learn_english.py --word cryptic
 # 3 对于一些词组
 python3 learn_english.py --word 'stand in the way of'
+# 4 搜索中文
+python3 learn_english.py --meaning 阻止
 ```
 
 
