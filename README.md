@@ -8,5 +8,17 @@
 查找单词表里有相近意思的单词
 并一个个读出来
 
+# Usage
+
+```bash
+cd .
+# 1
+python3 learn_english.py --random --random_words 10
+# 2
+python3 learn_english.py --word cryptic
+```
+
+
+
 ps
 找不到好的办法弄这个单词表，自己弄不现实，就找了tb，7块钱千字555
