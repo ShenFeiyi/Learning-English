@@ -132,21 +132,36 @@ def read_dict(filename,**kwarg):
 GRE = read_dict('GRE3000.txt')
 word_list = read_dict('TOEFL.txt',dictionary=GRE)
 
-import random
 import argparse
-
 parser = argparse.ArgumentParser()
-parser.add_argument('--words', type=int, default=10,
-                   help='numbers of initial words')
+parser.add_argument('--random', action='store_true',
+                    help='true for random words; false for selected words')
+parser.add_argument('--random_words', type=int, default=10,
+                    help='numbers of initial random words')
+parser.add_argument('--word', type=str, default=None,
+                    help='the given word, if not random mode is on')
 args = parser.parse_args()
 params = vars(args)
 
-words = random.sample(word_list.keys(),params['words'])
-for word in words:
-    word_dict = find_word(dictionary=word_list, word=word)
-    print(f'{word} {word_list[word]}')
-    read(word_list, word)
-    for w in word_dict:
-        print(f'{w} {word_dict[w]}')
-        read(word_dict, w)
-    print('')
+if params['random']:
+    import random
+    words = random.sample(word_list.keys(),params['words'])
+    for word in words:
+        word_dict = find_word(dictionary=word_list, word=word)
+        print(f'{word} {word_list[word]}')
+        read(word_list, word)
+        for w in word_dict:
+            print(f'{w} {word_dict[w]}')
+            read(word_dict, w)
+        print('')
+else:
+    if not params['word'] is None:
+        word = params['word']
+        word_dict = find_word(dictionary=word_list, word=word)
+        print(f'{word} {word_list[word]}')
+        read(word_list, word)
+        for w in word_dict:
+            print(f'{w} {word_dict[w]}')
+            read(word_dict, w)
+    else:
+        print('Should give a word under non-random circumstance!')
