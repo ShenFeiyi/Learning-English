@@ -12,10 +12,12 @@
 
 ```bash
 cd .
-# 1
+# 1 随机听一些词
 python3 learn_english.py --random --random_words 10
-# 2
+# 2 有目的地搜索
 python3 learn_english.py --word cryptic
+# 3 对于一些词组
+python3 learn_english.py --word 'stand in the way of'
 ```
 
 
